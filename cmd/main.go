@@ -1,28 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// LiquidityPosition holds all the data for a single liquidity position at entry point.
-type LiquidityPosition struct {
-	BaseAsset     string
-	QuoteAsset    string
-	Chain         string
-	Exchange      string
-	BaseBalance   float64
-	QuoteBalance  float64
-	QuotePrice    float64 // price of base asset in quote asset
-	Range         float64 // 0-100% range, half below, half above.
-	UpperBound    float64 // upper bound of the range
-	LowerBound    float64 // lower bound of the range
-	StakingStatus bool    // whether the position is in a staking pool
-}
-
-// LiquidityPositions holds all the LP positions
-type LiquidityPositions struct {
-	Chain     string
-	Positions []LiquidityPosition
-}
+	"github.com/jdbdev/liquidity/internal/cli"
+)
 
 func main() {
-	fmt.Println("Liquidity tracker tool")
+	fmt.Println("Liquidity Pool Manager")
+
+	//Call ticker service
+	NewTickerService()
+
+	//Call CLI functions (cmd/cli.go)
+	cli.AddPosition()
+	cli.ListPositions()
+	cli.RemovePosition()
+	cli.ShowStatus()
 }
